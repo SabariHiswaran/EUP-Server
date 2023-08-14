@@ -4,4 +4,4 @@ dist/
 .DS_Store
 .env
 .cache
-db-pass.txt
+db-pass.*
