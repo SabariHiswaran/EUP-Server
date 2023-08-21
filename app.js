@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 
 const bodyparser = require('body-parser')
 
+const cors = require('cors')
+
 const HttpError = require('./model/Http-error')
 
 const teacherroutes = require("./routes/teacher-routes")
@@ -13,7 +15,9 @@ const app = express()
 
 app.use(bodyparser.json())
 
-app.use("/api/teacher" , teacherroutes)
+app.use(cors())
+
+app.use("/api/teacher" , teacherroutes)   //Teacher routes
 
 app.use((error,req,res,next) => {
 
@@ -28,6 +32,6 @@ app.use((error,req,res,next) => {
 mongoose.connect("mongodb+srv://sabari:2aHFuH3s4CiIMXYf@cluster0.d9vjeat.mongodb.net/test?retryWrites=true&w=majority")
 .then(() => app.listen(5000))
 .catch((err) => {
-    const error =  new HttpError("COnnection failed" , 500 )
+    const error =  new HttpError("Connection failed" , 500 )
     throw error
 })

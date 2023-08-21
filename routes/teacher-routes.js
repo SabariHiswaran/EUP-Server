@@ -5,6 +5,6 @@ const router = express.Router()
 
 const teacherControllers = require('../controllers/teacher-controllers')
 
-router.get("/", teacherControllers.courselist)
+router.get("/courses", teacherControllers.courselist)
 
 module.exports = router
