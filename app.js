@@ -29,7 +29,7 @@ app.use((error,req,res,next) => {
     res.json({message: error.message || "An unexpected error has been occured"})
 })
 
-mongoose.connect("mongodb+srv://sabari:2aHFuH3s4CiIMXYf@cluster0.d9vjeat.mongodb.net/test?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://sabari:2aHFuH3s4CiIMXYf@cluster0.d9vjeat.mongodb.net/EUP?retryWrites=true&w=majority")
 .then(() => app.listen(5000))
 .catch((err) => {
     const error =  new HttpError("Connection failed" , 500 )
