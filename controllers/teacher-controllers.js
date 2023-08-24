@@ -1,6 +1,7 @@
 
 const HttpError = require('../model/Http-error')
 const Course = require('../model/course-model')
+const CourseMeeting = require('../model/meeting-model')
 
 const courselist = async (req,res,next) => {
 
@@ -17,4 +18,37 @@ const courselist = async (req,res,next) => {
     res.json({courses : course})
 }
 
+
+const createNewMeeting = async (req,res,next) => {
+
+    const {courseTopic,topic,membersLimit,startDate,endDate,startTime,endTime,totalDays,name,designation,experience,knowledgeRequired} = req.body
+
+    const createdMeeting = new CourseMeeting({
+      courseTopic,
+      topic ,
+      membersLimit,   
+      startDate,
+      endDate,
+      startTime,
+      endTime,
+      totalDays,       
+      name,
+      designation,
+      experience,        
+      knowledgeRequired
+    })
+
+    try{
+      await createdMeeting.save()
+    }catch(err){
+      const error = new HttpError("Unable to create the new Meeting" , 404)
+      return next(error)
+  }
+
+    res.status(201).json({requestData : req.body})
+   
+} 
+
+
 exports.courselist = courselist
+exports.createNewMeeting = createNewMeeting

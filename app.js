@@ -15,12 +15,14 @@ const app = express()
 
 app.use(bodyparser.json())
 
+app.use(bodyparser.urlencoded({extended : true}))
+
 app.use(cors())
 
 app.use("/api/teacher" , teacherroutes)   //Teacher routes
 
 app.use((error,req,res,next) => {
-
+   
     if(res.headersent){
         return next(error)
     }
