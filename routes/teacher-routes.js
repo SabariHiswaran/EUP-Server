@@ -9,4 +9,6 @@ router.get("/courses", teacherControllers.courselist)
 
 router.post("/courses/createMeeting",teacherControllers.createNewMeeting )
 
+router.get("/courseMeetings",teacherControllers.courseMeetings )
+
 module.exports = router
