@@ -51,15 +51,19 @@ const createNewMeeting = async (req,res,next) => {
 
 const courseMeetings = async (req,res,next) => {
     let allCourseMeetings
+    let convertedCourseMeetings
 
     try{
      allCourseMeetings =await CourseMeeting.find({})
+
+     convertedCourseMeetings = allCourseMeetings.map(meeting => meeting.toObject({getters : true }))
+     
     }catch(err){
       const error = new HttpError("Could not find any meetings details" , 404)
       return next(error)
     }
 
-    res.json({courseMeetings : allCourseMeetings})
+    res.json({courseMeetings :convertedCourseMeetings })
 }
 
 exports.courselist = courselist
