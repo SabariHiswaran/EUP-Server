@@ -11,4 +11,6 @@ router.post("/courses/createMeeting",teacherControllers.createNewMeeting )
 
 router.get("/courseMeetings",teacherControllers.courseMeetings )
 
+router.delete("/courseMeetings/:meetingId", teacherControllers.deleteMeeting)
+
 module.exports = router

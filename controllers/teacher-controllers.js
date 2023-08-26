@@ -66,6 +66,31 @@ const courseMeetings = async (req,res,next) => {
     res.json({courseMeetings :convertedCourseMeetings })
 }
 
+const deleteMeeting = async (req,res,next) => {
+
+    const meetingId = req.params.meetingId 
+console.log(req)
+    let meeting
+
+    try{
+     meeting = await CourseMeeting.findByIdAndRemove(meetingId)
+    }catch(err) {
+      const error =new HttpError("Could not delete the meeting" , 500)
+      return next(error)
+    }
+
+    // try{
+    //   meeting.remove()
+    //  }catch(err) {
+    //    const error =new HttpError("Could not delete the meeting" , 500)
+    //    return next(error)
+    //  }
+
+     res.status(200).json({meeting : "Selected Meeting has been deleted successfully"})
+
+}
+
 exports.courselist = courselist
 exports.createNewMeeting = createNewMeeting
 exports.courseMeetings = courseMeetings
+exports.deleteMeeting = deleteMeeting
