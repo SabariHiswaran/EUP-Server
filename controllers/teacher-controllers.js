@@ -69,7 +69,7 @@ const courseMeetings = async (req,res,next) => {
 const deleteMeeting = async (req,res,next) => {
 
     const meetingId = req.params.meetingId 
-console.log(req)
+console.log("reached")
     let meeting
 
     try{
