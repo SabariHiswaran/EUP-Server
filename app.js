@@ -11,6 +11,8 @@ const HttpError = require('./model/Http-error')
 
 const teacherroutes = require("./routes/teacher-routes")
 
+const studentroutes = require("./routes/student-routes")
+
 const app = express()
 
 app.use(bodyparser.json())
@@ -20,6 +22,8 @@ app.use(bodyparser.urlencoded({extended : true}))
 app.use(cors())
 
 app.use("/api/teacher" , teacherroutes)   //Teacher routes
+
+app.use("/api/student", studentroutes )
 
 app.use((error,req,res,next) => {
    
