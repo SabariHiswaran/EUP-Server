@@ -2,6 +2,7 @@
 const HttpError = require('../model/Http-error')
 const Course = require('../model/course-model')
 const CourseMeeting = require("../model/meeting-model")
+const Participant = require("../model/participant-model")
 
 const courselist = async (req,res,next) => {
 
@@ -56,6 +57,46 @@ const selectedMeeting = async (req,res,next) => {
 
 }
 
+const addParticipants = async (req,res,next) => {
+
+    const {
+      name,
+      designation,
+      experience,
+      empStatus,
+      emailId,
+      supervisorId,
+      accountName,
+      courseTopic,
+      topic,
+      meetingId
+        }= req.body 
+
+   const newParticipant = new Participant({
+        name,
+        designation,
+        experience,
+        empStatus,
+        emailId,
+        supervisorId,
+        accountName,
+        courseTopic,
+        topic,
+        meetingId
+      })
+ 
+    try {
+      await newParticipant.save()
+    }catch{
+      const error = new HttpError("Unable to add new Participant" ,404 )
+      return next(error)
+    }
+    
+    res.status(201).json({newParticipant : newParticipant})
+
+}
+
 exports.courselist = courselist
 exports.upcomingMeetings = upcomingMeetings
 exports.selectedMeeting = selectedMeeting
+exports.addParticipants = addParticipants
