@@ -11,4 +11,6 @@ router.get("/courses/:courseTopic/:topic/register/:meetingId",studentControllers
 
 router.post("/courses/:courseTopic/:topic/register/:meetingId", studentControllers.addParticipants)
 
+router.get("/courses/enrolledMeetings", studentControllers.enrolledMeetings)
+
 module.exports = router

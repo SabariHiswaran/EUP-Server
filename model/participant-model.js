@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const ParticipantSchema = new Schema({
-    meetingId : {type:Number,required:true},
+    meetingId : {type:String,required:true},
     courseTopic: {type : String , required : true },
     topic: {type : String , required : true },      
     name:  {type : String , required : true },

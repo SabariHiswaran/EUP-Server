@@ -96,7 +96,27 @@ const addParticipants = async (req,res,next) => {
 
 }
 
+
+const enrolledMeetings = async (req,res,next) => {
+  let allMeetings
+  let convertedMeetings
+
+  try{
+    allMeetings =await Participant.find({})
+
+    convertedMeetings = allMeetings.map(meeting => meeting.toObject({getters : true }))
+   
+  }catch(err){
+    const error = new HttpError("Could not find any meetings details" , 404)
+    return next(error)
+  }
+
+  res.json({enrolledMeetings :convertedMeetings })
+}
+
+
 exports.courselist = courselist
 exports.upcomingMeetings = upcomingMeetings
 exports.selectedMeeting = selectedMeeting
 exports.addParticipants = addParticipants
+exports.enrolledMeetings = enrolledMeetings
