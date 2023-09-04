@@ -5,4 +5,6 @@ const router = express.Router()
 
 router.get("/courses" , studentControllers.courselist)
 
+router.get("/courses/:courseTopic/:topic/upcomingMeetings",studentControllers.upcomingMeetings)
+
 module.exports = router
