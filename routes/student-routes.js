@@ -7,4 +7,6 @@ router.get("/courses" , studentControllers.courselist)
 
 router.get("/courses/:courseTopic/:topic/upcomingMeetings",studentControllers.upcomingMeetings)
 
+router.get("/courses/:courseTopic/:topic/register/meetingId",studentControllers.selectedMeeting)
+
 module.exports = router

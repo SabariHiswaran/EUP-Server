@@ -38,5 +38,24 @@ const upcomingMeetings = async (req,res,next) => {
 }
 
 
+const selectedMeeting = async (req,res,next) => {
+
+  const {courseTopic,topic,meetingId} = req.params
+
+  
+  let meeting;
+
+  try{
+    meeting =  await CourseMeeting.findById(meetingId)
+  }catch(err){
+      const error = new HttpError("Cannot find the Upcoming meetings for the selected course" , 404)
+      return next(error)
+  }
+
+  res.json({meeting : meeting.toObject({getters : true })})
+
+}
+
 exports.courselist = courselist
 exports.upcomingMeetings = upcomingMeetings
+exports.selectedMeeting = selectedMeeting
