@@ -13,4 +13,6 @@ router.post("/courses/:courseTopic/:topic/register/:meetingId", studentControlle
 
 router.get("/courses/enrolledMeetings", studentControllers.enrolledMeetings)
 
+router.delete("/courses/unenroll/:id/:meetingId", studentControllers.unregister)
+
 module.exports = router

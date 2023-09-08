@@ -92,7 +92,7 @@ const addParticipants = async (req,res,next) => {
       return next(error)
     }
     
-    res.status(201).json({newParticipant : newParticipant})
+    res.status(201).json({newParticipant : newParticipant.toObject({getters : true })})
 
 }
 
@@ -114,9 +114,27 @@ const enrolledMeetings = async (req,res,next) => {
   res.json({enrolledMeetings :convertedMeetings })
 }
 
+const unregister = async (req,res,next) => {
+
+  const meetingId = req.params.meetingId 
+  const id = req.params.id
+
+  let student
+
+  try{
+   student = await Participant.findByIdAndRemove(id)
+  }catch(err) {
+    const error =new HttpError("Could not unregister the participant" , 500)
+    return next(error)
+  }
+
+  res.status(200).json({unregister : "You are successfully unregister form the meeting"})
+
+}
 
 exports.courselist = courselist
 exports.upcomingMeetings = upcomingMeetings
 exports.selectedMeeting = selectedMeeting
 exports.addParticipants = addParticipants
 exports.enrolledMeetings = enrolledMeetings
+exports.unregister = unregister
