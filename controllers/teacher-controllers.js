@@ -2,6 +2,7 @@
 const HttpError = require('../model/Http-error')
 const Course = require('../model/course-model')
 const CourseMeeting = require('../model/meeting-model')
+const Participant = require('../model/participant-model')
 
 const courselist = async (req,res,next) => {
 
@@ -148,9 +149,30 @@ const editMeeting = async (req,res,next) => {
    res.status(200).json({meeting : "Meeting Details has been successfully updated."})
 }
 
+const enrolledMembers = async (req,res,next) => {
+
+  const meetingId = req.params.meetingId
+
+  let members 
+
+  try {
+    members = await Participant.find({meetingId : meetingId})
+
+    convertedMembers = members.map(member => member.toObject({getters : true }))
+
+  }catch(err) {
+    const error =new HttpError("Something went wrong, Could not find the enrolled members" , 500)
+    return next(error)
+  }
+
+  res.status(200).json({members : convertedMembers})
+}
+
+
 exports.courselist = courselist
 exports.createNewMeeting = createNewMeeting
 exports.courseMeetings = courseMeetings
 exports.meetingDetail = meetingDetail
 exports.editMeeting = editMeeting
 exports.deleteMeeting = deleteMeeting
+exports.enrolledMembers = enrolledMembers
