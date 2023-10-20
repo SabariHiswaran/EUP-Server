@@ -3,6 +3,11 @@ const studentControllers = require('../controllers/student-controllers')
 
 const router = express.Router()
 
+
+const checkAuth = require("../middleware/check-auth")
+
+router.use(checkAuth)
+
 router.get("/courses" , studentControllers.courselist)
 
 router.get("/courses/:courseTopic/:topic/upcomingMeetings",studentControllers.upcomingMeetings)
@@ -14,5 +19,5 @@ router.post("/courses/:courseTopic/:topic/register/:meetingId", studentControlle
 router.get("/courses/enrolledMeetings", studentControllers.enrolledMeetings)
 
 router.delete("/courses/unenroll/:id/:meetingId", studentControllers.unregister)
-
+ 
 module.exports = router

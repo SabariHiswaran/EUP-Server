@@ -9,6 +9,8 @@ const cors = require('cors')
 
 const HttpError = require('./model/Http-error')
 
+const userroutes = require('./routes/user-routes')
+
 const teacherroutes = require("./routes/teacher-routes")
 
 const studentroutes = require("./routes/student-routes")
@@ -20,6 +22,10 @@ app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({extended : true}))
 
 app.use(cors())
+
+app.use("/", userroutes)
+
+app.use("/login", userroutes)
 
 app.use("/api/teacher" , teacherroutes)   //Teacher routes
 
