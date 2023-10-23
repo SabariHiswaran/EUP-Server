@@ -16,10 +16,12 @@ module.exports = (req,res,next) => {
         if(!token) {
             throw new Error("Authentication failed")
         }
-
+        console.log(token)
         const decodedToken = jwt.verify(token,'supersecret_privatekey')
-     
+    
         req.userData = {userId : decodedToken.userId}
+
+        console.log("decoded token is" + req.userData.userId)
         next()
         
     }catch(err) {

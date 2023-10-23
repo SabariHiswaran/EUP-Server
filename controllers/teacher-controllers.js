@@ -22,7 +22,7 @@ const courselist = async (req,res,next) => {
 
 const createNewMeeting = async (req,res,next) => {
 
-    const {courseTopic,topic,membersLimit,startDate,endDate,startTime,endTime,totalDays,name,designation,experience,knowledgeRequired} = req.body
+    const {courseTopic,topic,membersLimit,startDate,endDate,startTime,endTime,totalDays,name,designation,experience,knowledgeRequired,userId} = req.body
 
     const createdMeeting = new CourseMeeting({
       courseTopic,
@@ -36,7 +36,8 @@ const createNewMeeting = async (req,res,next) => {
       name,
       designation,
       experience,        
-      knowledgeRequired
+      knowledgeRequired,
+      userId
     })
 
     try{
@@ -54,8 +55,11 @@ const courseMeetings = async (req,res,next) => {
     let allCourseMeetings
     let convertedCourseMeetings
 
+    const {userId} = req.userData
+
+
     try{
-     allCourseMeetings =await CourseMeeting.find({})
+     allCourseMeetings =await CourseMeeting.find({userId : userId})
 
      convertedCourseMeetings = allCourseMeetings.map(meeting => meeting.toObject({getters : true }))
      

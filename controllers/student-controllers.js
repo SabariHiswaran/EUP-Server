@@ -69,7 +69,8 @@ const addParticipants = async (req,res,next) => {
       accountName,
       courseTopic,
       topic,
-      meetingId
+      meetingId,
+      userId 
         }= req.body 
 
    const newParticipant = new Participant({
@@ -82,7 +83,8 @@ const addParticipants = async (req,res,next) => {
         accountName,
         courseTopic,
         topic,
-        meetingId
+        meetingId,
+        userId
       })
  
     try {
@@ -98,11 +100,14 @@ const addParticipants = async (req,res,next) => {
 
 
 const enrolledMeetings = async (req,res,next) => {
+
+  const {userId} = req.userData
+
   let allMeetings
   let convertedMeetings
 
   try{
-    allMeetings =await Participant.find({})
+    allMeetings =await Participant.find({userId : userId})
 
     convertedMeetings = allMeetings.map(meeting => meeting.toObject({getters : true }))
    
