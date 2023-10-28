@@ -45,13 +45,14 @@ const selectedMeeting = async (req,res,next) => {
 
   
   let meeting;
-
+console.log(meetingId)
   try{
     meeting =  await CourseMeeting.findById(meetingId)
   }catch(err){
       const error = new HttpError("Cannot find the Upcoming meetings for the selected course" , 404)
       return next(error)
   }
+  console.log("meeting" , meeting)
 
   res.json({meeting : meeting.toObject({getters : true })})
 

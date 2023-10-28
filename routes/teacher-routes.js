@@ -23,4 +23,8 @@ router.delete("/courseMeetings/:meetingId", teacherControllers.deleteMeeting)
 
 router.get("/courses/enrolledMembers/:meetingId" , teacherControllers.enrolledMembers)
 
+router.patch("/courseMeetings/updateMeetingStatus/:meetingId",teacherControllers.updateMeetingStatusDetail)
+
+router.get("/courseMeetings/completedMeetings/Rewards", teacherControllers.rewardsMeeting)
+
 module.exports = router

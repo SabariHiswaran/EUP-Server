@@ -22,7 +22,7 @@ const courselist = async (req,res,next) => {
 
 const createNewMeeting = async (req,res,next) => {
 
-    const {courseTopic,topic,membersLimit,startDate,endDate,startTime,endTime,totalDays,name,designation,experience,knowledgeRequired,userId} = req.body
+    const {courseTopic,topic,membersLimit,startDate,endDate,startTime,endTime,totalDays,name,designation,experience,knowledgeRequired,userId,status} = req.body
 
     const createdMeeting = new CourseMeeting({
       courseTopic,
@@ -37,7 +37,8 @@ const createNewMeeting = async (req,res,next) => {
       designation,
       experience,        
       knowledgeRequired,
-      userId
+      userId,
+      status
     })
 
     try{
@@ -173,6 +174,60 @@ const enrolledMembers = async (req,res,next) => {
 }
 
 
+const updateMeetingStatusDetail = async (req,res,next) => {
+
+  const meetingId = req.params.meetingId 
+
+  let meeting
+
+  try{
+   meeting = await CourseMeeting.findById(meetingId)
+   
+  }catch(err) {
+    const error =new HttpError("Something went wrong, Could not update the meeting" , 500)
+    return next(error)
+  }
+
+  meeting.status = "Completed"
+
+ try{
+   await meeting.save()
+   
+  }catch(err) {
+    const error =new HttpError("Something went wrong, Could not update the meeting" , 500)
+    return next(error)
+  }
+
+   res.status(200).json({meeting : "Meeting Details has been successfully updated."})
+}
+
+
+const rewardsMeeting = async (req,res,next) => {
+
+  let allCourseMeetings
+  let convertedCourseMeetings
+  let eligibleMeetings
+
+  const {userId} = req.userData
+
+
+  try{
+   allCourseMeetings =await CourseMeeting.find({userId : userId})
+
+   eligibleMeetings = allCourseMeetings.filter(meetings => meetings.status === "Completed")
+
+   convertedCourseMeetings = eligibleMeetings.map(meeting => meeting.toObject({getters : true }))
+   
+  }catch(err){
+    const error = new HttpError("Could not find any meetings details" , 404)
+    return next(error)
+  }
+
+  res.json({eligibleMeetings :convertedCourseMeetings })
+}
+
+
+
 exports.courselist = courselist
 exports.createNewMeeting = createNewMeeting
 exports.courseMeetings = courseMeetings
@@ -180,3 +235,5 @@ exports.meetingDetail = meetingDetail
 exports.editMeeting = editMeeting
 exports.deleteMeeting = deleteMeeting
 exports.enrolledMembers = enrolledMembers
+exports.updateMeetingStatusDetail = updateMeetingStatusDetail
+exports.rewardsMeeting = rewardsMeeting
