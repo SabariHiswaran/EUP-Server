@@ -226,6 +226,41 @@ const rewardsMeeting = async (req,res,next) => {
   res.json({eligibleMeetings :convertedCourseMeetings })
 }
 
+const updateBadgeDetail = async (req,res,next) => {
+
+  console.log("reacghed")
+  const memberId = req.params.memberId 
+
+  const selectedBadge = req.body.badge
+
+  console.log(memberId)
+
+  console.log(selectedBadge)
+
+  let member
+
+  try{
+   member = await Participant.findById(memberId)
+   
+  }catch(err) {
+    const error =new HttpError("Something went wrong, Could not update the meeting" , 500)
+    return next(error)
+  }
+
+  member.badge = selectedBadge
+
+  console.log(member)
+
+ try{
+   await member.save()
+   
+  }catch(err) {
+    const error =new HttpError("Something went wrong, Could not update the meeting" , 500)
+    return next(error)
+  }
+
+   res.status(200).json({status : 200 , meeting : "Member Badge Details has been successfully updated."})
+}
 
 
 exports.courselist = courselist
@@ -237,3 +272,4 @@ exports.deleteMeeting = deleteMeeting
 exports.enrolledMembers = enrolledMembers
 exports.updateMeetingStatusDetail = updateMeetingStatusDetail
 exports.rewardsMeeting = rewardsMeeting
+exports.updateBadgeDetail = updateBadgeDetail

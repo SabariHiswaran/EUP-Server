@@ -13,7 +13,8 @@ const ParticipantSchema = new Schema({
     emailId:  {type : String , required : true },
     supervisorId : {type:Object,required:true},
     accountName:  {type : String , required : true },
-    userId :  {type : String , required : true }
+    userId :  {type : String , required : true },
+    badge :  {type : String , required : true }
   })
 
   module.exports = mongoose.model("Participant", ParticipantSchema)

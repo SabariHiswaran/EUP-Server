@@ -71,7 +71,8 @@ const addParticipants = async (req,res,next) => {
       courseTopic,
       topic,
       meetingId,
-      userId 
+      userId ,
+      badge
         }= req.body 
 
    const newParticipant = new Participant({
@@ -85,7 +86,8 @@ const addParticipants = async (req,res,next) => {
         courseTopic,
         topic,
         meetingId,
-        userId
+        userId,
+        badge
       })
  
     try {
