@@ -140,9 +140,48 @@ const unregister = async (req,res,next) => {
 
 }
 
+
+const updateFeedbackNumber = async (req,res,next) => {
+
+  console.log("reacghed")
+  const meetingId = req.params.meetingId 
+  const userId = req.params.id 
+  const feedbackNumber = req.params.feedbackNumber 
+
+
+  let meeting
+
+  try{
+  //  meeting = await CourseMeeting.findByIdAndUpdate(meetingId,{$push : {feedback : [{"userId" : userId ,"providedFeedback" : feedbackNumber}]} } )
+  meeting = await CourseMeeting.findById(meetingId)
+   
+  }catch(err) {
+    const error =new HttpError("Something went wrong, Could not update the meeting" , 500)
+    return next(error)
+  }
+
+  const newObj = {"userId" : userId ,"providedFeedback" : feedbackNumber}
+
+  meeting.feedback.push(newObj)
+
+  console.log(meeting.feedback)
+
+ try{
+   await meeting.save()
+   
+  }catch(err) {
+    const error =new HttpError("Something went wrong, Could not update the meeting" , 500)
+    return next(error)
+  }
+
+   res.status(200).json({status : 200 , meeting : "Feedback has been successfully updated."})
+}
+
+
 exports.courselist = courselist
 exports.upcomingMeetings = upcomingMeetings
 exports.selectedMeeting = selectedMeeting
 exports.addParticipants = addParticipants
 exports.enrolledMeetings = enrolledMeetings
 exports.unregister = unregister
+exports.updateFeedbackNumber = updateFeedbackNumber

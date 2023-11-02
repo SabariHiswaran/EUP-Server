@@ -38,7 +38,8 @@ const createNewMeeting = async (req,res,next) => {
       experience,        
       knowledgeRequired,
       userId,
-      status
+      status,
+      feedback : {"status" : "Not Provided"}
     })
 
     try{

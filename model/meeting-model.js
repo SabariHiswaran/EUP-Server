@@ -16,7 +16,13 @@ const MeetingSchema = new Schema({
     experience: {type : Number , required : true },        
     knowledgeRequired:  {type : String , required : true },
     userId : {type : String , required : true }  ,
-    status : {type : String , required : true }  
+    status : {type : String , required : true } ,
+    feedback :  [
+      {
+          type : Object,
+          required:true
+      }
+  ]
   })
 
   module.exports = mongoose.model("CourseMeeting", MeetingSchema)

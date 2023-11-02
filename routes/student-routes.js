@@ -19,5 +19,8 @@ router.post("/courses/:courseTopic/:topic/register/:meetingId", studentControlle
 router.get("/courses/enrolledMeetings", studentControllers.enrolledMeetings)
 
 router.delete("/courses/unenroll/:id/:meetingId", studentControllers.unregister)
+
+router.patch("/courses/feedback/:id/:meetingId/:feedbackNumber",studentControllers.updateFeedbackNumber)
+
  
 module.exports = router
