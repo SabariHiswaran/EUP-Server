@@ -27,6 +27,8 @@ router.patch("/courseMeetings/updateMeetingStatus/:meetingId",teacherControllers
 
 router.get("/courseMeetings/completedMeetings/Rewards", teacherControllers.rewardsMeeting)
 
+router.get("/profile", teacherControllers.getProfile)
+
 router.patch("/courses/updateBadge/:memberId",teacherControllers.updateBadgeDetail)
 
 module.exports = router

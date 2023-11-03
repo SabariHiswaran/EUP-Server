@@ -3,6 +3,8 @@ const HttpError = require('../model/Http-error')
 const Course = require('../model/course-model')
 const CourseMeeting = require('../model/meeting-model')
 const Participant = require('../model/participant-model')
+const Signup = require("../model/signup-model")
+
 
 const courselist = async (req,res,next) => {
 
@@ -264,6 +266,25 @@ const updateBadgeDetail = async (req,res,next) => {
 }
 
 
+
+const getProfile = async (req,res,next) => {
+
+  let profile;
+
+  const {userId} = req.userData
+
+  try{
+    profile =  await Signup.findById(userId)
+    
+  }catch(err){
+      const error = new HttpError("Cannot find the user" , 404)
+      return next(error)
+  }
+
+  res.json({profileData : profile})
+}
+
+
 exports.courselist = courselist
 exports.createNewMeeting = createNewMeeting
 exports.courseMeetings = courseMeetings
@@ -274,3 +295,4 @@ exports.enrolledMembers = enrolledMembers
 exports.updateMeetingStatusDetail = updateMeetingStatusDetail
 exports.rewardsMeeting = rewardsMeeting
 exports.updateBadgeDetail = updateBadgeDetail
+exports.getProfile = getProfile
